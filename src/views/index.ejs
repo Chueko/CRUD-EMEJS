@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title%></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1><%= title %></h1>
+
+        <form action="/add" method="post">
+            <legend>
+                Add a Task
+            </legend>
+            <div class="form-group">
+                <input type="text" id="title" class="from-control" name="title">
+            </div>
+            <div class="form-group">
+                <textarea placeholder="Add a description" class="from-control" name="description" cols="50" rows="1"></textarea>
+            </div>
+            <button class="btn btn-primary">
+                Add
+            </button>
+        </form>
+        <hr>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0;i<task.length;i++){%>
+                    <tr>
+                        <td><%= i+1 %></td>
+                        <td><strong>
+                            <%= task[i].title %>
+                        </strong></td>
+                        <td>
+                            <%= task[i].description %>
+                        </td>
+                        <td>
+                            <a class="<%= task[i].status ? 'btn btn-success': 'btn btn-dark'%>"
+                            href="/turn/<%= task[i]._id %>">Done</a>
+                            <a class="btn btn-danger"
+                            href="/delete/<%= task[i]._id %>">Delete</a>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.getElementById('title').focus();
+    </script>
+</body>
+</html>
